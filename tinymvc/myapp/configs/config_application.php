@@ -9,7 +9,8 @@
  * @author		Monte Ohrt
  */
 
- 
+error_reporting (E_ALL ) ;
+
 /* URL routing, use preg_replace() compatible syntax */
 $config['routing']['search'] =  array();
 $config['routing']['replace'] = array();

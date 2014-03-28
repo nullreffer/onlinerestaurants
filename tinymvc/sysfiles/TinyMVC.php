@@ -115,9 +115,15 @@ class tmvc
     /* capture output if timing */
     if($this->config['timer'])
       ob_start();
-    
+
+     /* save param information */
+    $params = array();
+    for($i = 1; !empty($this->url_segments[$i]); $i++) {
+        $params[$i - 1] = $this->url_segments[$i];
+    }    
+
     /* execute controller action */
-    $this->controller->{$this->action}();
+    $this->controller->{$this->action}($params);
     
     if($this->config['timer'])
     {

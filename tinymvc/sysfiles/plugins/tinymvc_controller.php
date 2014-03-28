@@ -44,7 +44,7 @@ class TinyMVC_Controller
 	 *
 	 * @access	public
 	 */    
-  function index() { }
+  function index($params = array()) { }
 
 	/**
 	 * __call
@@ -55,7 +55,8 @@ class TinyMVC_Controller
 	 */    
   function __call($function, $args) {
   
-    throw new Exception("Unknown controller method '{$function}'");
+    $this->index(is_array($args) ? reset($args) : array());
+    // throw new Exception("Unknown controller method '{$function}'");
 
   }
   

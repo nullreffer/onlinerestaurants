@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# if the page is an html, htm, or php then let the website attempt to figure out what page is being requested
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php/$1 [L]
+RewriteRule ^$ index.php [L]
