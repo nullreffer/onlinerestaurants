@@ -3,41 +3,60 @@
 class Generic_Model extends TinyMVC_Model
 {
     function getAll($modelName) {
-        // sample
-        $arr[0] = new StdClass();
-        $arr[1] = new StdClass();
+        if (!ctype_alpha($modelName)) {
+            return array();
+        }
 
-        $arr[0]->id = 1;
-        $arr[1]->id = 2;
+        $r = array();
+        
+        $this->db->query("select * from " . $modelName);
+        while ($row = $this->db->next()) {
+            $r[] = (object) array_map(__FUNCTION__, $row); 
+        }
 
-        $arr[0]->name = "jay";
-        $arr[1]->name = "notjay";
-
-        return $arr;
+        return $r;
     }
 
     function get($modelName, $params){
-        // sample
-        $o = new StdClass();
-        $o->id = 1;
-        $o->name = "jay";
-
-        if (isset($params["name"]) && $params["name"] == "who") {
-            // sample where clause
-            $o->name = "cookie";
+        if (!ctype_alpha($modelName) || empty($params)) {
+            return array();
         }
-        
-        return $o;
+
+        $r = array();
+
+        $q = "";
+        foreach ($params as $k => $v) {
+            if (!preg_match("/^[A-Za-z0-9_]+$/", $k)) continue;
+            $q .= !empty($q) ? " and " : " ";
+            $q .= $k . " = '" . mysql_real_escape_string($v) . "' ";
+        }
+        if (empty($q)) return array();
+
+        $this->db->query("select * from " . $modelName . " where " . $q );
+        while ($row = $this->db->next()) {
+            $r[] = (object) array_map(__FUNCTION__, $row); 
+        }
+
+        return $r;
     }
 
-    function create($modelName) {
-        // sample
-        $n = new StdClass();
-        $n->id = 423;
-        $n->name = "What";
+    function create($modelName, $obj) {
 
-        return $n;
+        $oa = get_object_vars($obj);
+        if (empty($oa)) return -1;
+
+        $a = array_map(__FUNCTION__, $oa);
+        $this->db->query("insert into " . $modelName . "(" . implode(",", $oa) .") values(" . "?" . str_repeat(",?", count($oa) - 1) . ") ", array_values($a));
+
+        return $this->db->last_insert_id();
+    }
+
+    function remove($modelName, $params) {
+        // todo
+    }
+
+    function update($modelName, $params, $updates) {
+        // todo
     }
 }
 
-?>
