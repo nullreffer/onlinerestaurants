@@ -1,71 +1,132 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/strict.dtd">
 <html>
 	<head>
-		<title>Welcome to TinyMVC!</title>
+		<title>Restaurants</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-		<style type="text/css">
-			body {
-			  background:#9dbde1 url(http://www.tinymvc.com/images/bg-gradient.gif) top repeat-x;
-				color:							#666666;
-				font-family:				arial, sans;
-				font-size:					100%;
-				line-height:				1.7em;
-				margin:							0 auto;
-				text-align:         center;
-				width:              500px;
-			}
-
-			h1 {
-				font-size: 					2.18em;
-				letter-spacing:			-0.01em;
-			}			
-			
-			a:link {
-				color:							#134c8c;
-			}
-
-			a:visited {
-				color:							#666666;
-			}
-
-      .code {
-        text-align:         left;
-      	margin:             0 0 1.5em 0;
-      	font-size:          1.0em;
-      	border:             1px solid #134c8c;
-      	background-color:   #cae3ff;
-      	color:              #c44242;
-      	padding:            .2em 1em .4em;
-      }
-			
-			#bottom {
-				border-top:					1px solid #134c8c;
-				margin-top:					1em;
-				padding-top:				1em;
-				font-size:          0.8em;
-			}
-		</style>
 	</head>
 	<body>
 		
-	  <h1>Welcome to TinyMVC!</h1>
-		
-		<p>This is TinyMVC version <?=TMVC_VERSION?>.</p>
-		<p>The view file for this page is here:</p>
+	  Hi! Use the following:
+	  <pre>
+/api
+- returns api doc
 
-		<div class="code">tinymvc/myapp/views/index_view.php</div>
+/api/{resource}
 
-		<p>The controller for this page is here:</p>
+- /api/restaurant/{id}
+- - get - return restaurant profile
+- - post - {secure} create restaurant
+- - put - {secure} update restaurant 
 
-		<div class="code">tinymvc/myapp/controller/index.php</div>
-		
-		Let's get started, head to the <a href="http://www.tinymvc.com/wiki/index.php/Documentation">documentation</a>!
-		
-		<div id="bottom	">
-			<a href="http://www.tinymvc.com/">TinyMVC</a> is licensed under the GNU <a rel="license" href="http://www.gnu.org/licenses/lgpl.html">LGPL</a> license.
-		<br />
-		<span style="font-size: 0.8em">This page was rendered in {TMVC_TIMER} seconds.</span>
-		</div>
+- /api/menu/{id}
+- - get - return menu and menu items
+- - post - (secure) create new menu, return id
+
+- /api/menuitems/{id}
+- - get - return menu items for menu with id
+- - post - add menu item to menu with id, return menu item id
+- - put - update menu item 
+- - delete - delete menu item from menu with id
+
+- /api/cart/{id}
+- - get - return cart with id 
+- - post - create cart, return id
+- - put - update cart { add, remove items }
+
+- /api/order/{id}
+- - get - return order with id
+- - post - {secure} place order
+
+- /api/user/{phone}
+- - get - return user by phone
+- - post - {secure} create user and send verification
+- - put - {secure} update user 
+
+sample jsons
+restaurant : {
+    id: 11
+    name: “Chaat n Roll”,
+    desc: “Spicy indian fast food”,
+    type: “Indian, Fast Food”,
+    address: “123 Some Lane, Redmond, WA 98052”,
+    phone: 4251111111
+    estlatency: “15-20mins”
+    hours: “M-S: 9am-1pm, 5pm-9pm, S: 5pm-9pm “
+    menus: [
+        1: {  
+            id: 1, 
+            restaurant_id: 11, 
+            name: “chaat”, 
+            schedule: “Mon9-13,Mon17-21,…” 
+        },
+        2: {  
+            id: 2, 
+            restaurant_id: 11, 
+            name: “wine”,  
+            schedule: “Mon17-21,…” 
+        }
+    ]
+}
+
+menu : {
+    id: 1, 
+    restaurant_id: 11, 
+    name: “chaat”, 
+    schedule: “Mon9-13,Mon17-21,…”,
+    menuitems: [
+        101: {
+            name: “aloo chaat”,
+            description: “potato fritter topped with chick peas, spices, onions, and apple sauce”,
+            price: 5.95,
+            tax: 0.57,
+            is_vegetarian: 1, // -1 means not vegetarian, 1 means it is, 0 means can be made if custom
+            is_vegan: 0
+        },
+       102: {
+            name: “papdi chaat”,
+            description: “wheat crisps mixed with chick peas, spices, onions, and apple sauce”,
+            price: 5.95,
+            tax: 0.57,
+            is_vegetarian: 1, // -1 means not vegetarian, 1 means it is, 0 means can be made if custom
+            is_vegan: 0
+        }
+    ]
+}
+
+cart: {
+    id: 21, 
+    user: null, // or a user object
+    creationdate: 2014-05-20 09:20:15.982,
+    cartitems: [
+        101,
+        102
+    ],
+    comments: “Please make spice level 3 on a sacle of 1 to 5”
+}
+
+order: {
+    id: 41, 
+    user: {
+        id: 412,
+        phone: 7047632738,
+        name: jay
+    },
+    status: pending,
+    estreadytime: 2014-05-20 09:40:15.982 
+    creationdate: 2014-05-20 09:25:15.982,
+    orderitems: [
+        101,
+        102
+    ],
+    ordertotal: 11.9,
+    taxtotal: 1.14,
+    tip: 5,
+    total: 18.04,
+    deliverytype: pickup,
+    comments: “Please make spice level 3 on a sacle of 1 to 5”,
+    payment method: null // eventually
+}
+	  </pre>
 	</body>
 </html>
 

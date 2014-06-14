@@ -1,0 +1,9 @@
+
+// user roles
+// anonymous: anyone
+// user: any logged in user
+// owner: owner of object in question - DB.Record.IsOwner()
+// manager: manager of object in question - DB.Record.ForeignKeys.FetchAll.Each(rec => rec.IsOwner())
+// administrator: ME!
+
+

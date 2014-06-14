@@ -1,0 +1,188 @@
+[
+
+{
+    "name": "restaurant",
+    "default_write_level": "owner",
+    "default_read_level": "anonymous",
+    "attributes": [
+        {
+            "name": "name",
+            "type": "text"
+        },
+        {
+            "name": "description",
+            "type": "text"
+        },
+        {
+            "name": "genre",
+            "type": "genre"
+        },
+        { 
+            "name": "address",
+            "type": "text"
+        },
+        {
+            "name": "phone",
+            "type": "number"
+        },
+        {
+            "name": "estlatency",
+            "type": "text"
+        },
+        {
+            "name": "hours",
+            "type": "text"
+        },
+        {
+            "name": "latitude",
+            "type": "decimal"
+        },
+        {
+            "name": "longitude",
+            "type": "decimal"
+        }
+    ]
+},
+
+{
+    "name": "genre",
+    "default_write_level": "admin",
+    "default_read_level": "anonymous",
+    "attributes": [
+        {
+            "name": "name",
+            "type": "text"
+        },
+        {
+            "name": "keywords",
+            "type": "text"
+        }
+    ]
+},
+
+{
+    "name": "menu",
+    "default_write_level": "owner",
+    "default_read_level": "anonymous",
+    "attributes": [
+        {
+            "name": "restaurant",
+            "type": "restaurant"
+        },
+        {
+            "name": "name",
+            "type": "text"
+        },
+        {
+            "name": "schedule",
+            "type": "text"
+        }
+    ]
+},
+
+{
+    "name": "menuitem",
+    "default_write_level": "owner",
+    "default_read_level": "anonymous",
+    "attributes": [
+        {
+            "name": "name",
+            "type": "text"
+        },
+        {
+            "name": "description",
+            "type": "text"
+        },
+        {
+            "name": "price",
+            "type": "money"
+        },
+        {
+            "name": "is_vegetarian",
+            "type": "option",
+            "values": [ "Yes", "No", "Can Be Made" ]
+        },
+        {
+            "name": "is_vegan",
+            "type": "option",
+            "values": [ "Yes", "No", "Can Be Made" ]
+        }
+
+    ]
+},
+
+{
+    "name": "cart",
+    "default_write_level": "anonymous",
+    "default_read_level": "anonymous",
+    "attributes": [
+        {
+            "name": "comments",
+            "type": "text"
+        },
+        {
+            "name": "cartitems",
+            "type": "menuitem[]"
+        }
+    ]
+},
+
+{
+    "name": "order",
+    "default_write_level": "owner",
+    "default_read_level": "manager",
+    "attributes": [
+        {
+            "name": "status",
+            "type": "option",
+            "values": [ "Pending", "Submitted", "Delivered", "Canceled" ]
+        },
+        {
+            "name": "estreadytime",
+            "type": "datetime"
+        },
+        {
+            "name": "orderitems",
+            "type": "menuitem[]"
+        },
+        {
+            "name": "orderitemstotal",
+            "type": "money"
+        },
+        {
+            "name": "tip",
+            "type": "money"
+        },
+        {
+            "name": "taxtotal",
+            "type": "money"
+        },
+        {
+            "name": "deliverytype",
+            "type": "option",
+            "values": ["Deliver", "Pickup"]
+        },
+        {
+            "name": "comments",
+            "type": "text"
+        }
+    ]
+},
+
+{
+    "name": "review",
+    "default_write_level": "owner",
+    "default_read_level": "user",
+    "attributes": [
+        {
+            "name": "restaurant",
+            "type": "restaurant"
+        },
+        {
+            "name": "comments",
+            "type": "text"
+        }
+    ]
+}
+
+]

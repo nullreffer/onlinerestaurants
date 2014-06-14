@@ -172,7 +172,7 @@ class tmvc
    */    
   public function setupSegments()
   {
-    $this->url_segments = !empty($this->path_info) ? array_filter(explode('/',$this->path_info)) : null;
+    $this->url_segments = !empty($this->path_info) ? array_values(array_filter(explode('/',$this->path_info))) : null;
   }
   
   /**
@@ -187,7 +187,7 @@ class tmvc
       $controller_name = $this->config['root_controller'];
       $controller_file = "{$controller_name}.php";
     } else {
-      $controller_name = !empty($this->url_segments[1]) ? preg_replace('!\W!','',$this->url_segments[1]) : $this->config['default_controller'];
+      $controller_name = !empty($this->url_segments[0]) ? preg_replace('!\W!','',$this->url_segments[0]) : $this->config['default_controller'];
       $controller_file = "{$controller_name}.php";
       /* if no controller, use default */
       if(!stream_resolve_include_path($controller_file))

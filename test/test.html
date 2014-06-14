@@ -1,0 +1,39 @@
+<html>
+<body>
+
+<div id='createResult' ></div>
+<hr/>
+<div id='getResult' ></div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" >
+
+$(document).ready(function() {
+
+	// "genre": "Indian, Fast-Food, Vegetarian",
+
+	var restaurant = {
+	    "name": "Chaat n Roll",
+	    "description": "Spicy food for a hungry stomach",
+	    "address": "101 Some avenue",
+	    "phone": 4251011100
+	};
+
+
+	var createdRestaurant;
+	$.post("http://localhost/restaurants/api/restaurant", 
+		JSON.stringify(restaurant), 
+		function (data, status, xhr) {
+			createdRestaurant = data[0];
+		    $('#createResult').html(status + " : " + JSON.stringify(createdRestaurant));
+		    $('#getResult').load("http://localhost/restaurants/api/restaurant/" + createdRestaurant.id);
+		},
+		"json"
+	);
+	
+});
+
+</script>
+
+</body>
+</html>

@@ -4,16 +4,19 @@ class Cart_Controller extends TinyMVC_Controller
 {
     function index($params = array())
     {
-        $this->get($params);
+        echo "Controller CART";
+        echo $this->get($params);
     }
 
     function get($params = array()) {
         if (empty($this->session->cartid))
             _createCart();
+        return $this->session->cartid;
     }
 
     private function _createCart() {
         $this->session->isLoggedIn = false;
+        $this->session->cartid = 1;
     }
 
     function add($params = array()) {
