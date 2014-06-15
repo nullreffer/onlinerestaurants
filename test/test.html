@@ -21,12 +21,12 @@ $(document).ready(function() {
 
 
 	var createdRestaurant;
-	$.post("http://localhost/restaurants/api/restaurant", 
+	$.post("http://restaurants/api/restaurant", 
 		JSON.stringify(restaurant), 
 		function (data, status, xhr) {
 			createdRestaurant = data[0];
 		    $('#createResult').html(status + " : " + JSON.stringify(createdRestaurant));
-		    $('#getResult').load("http://localhost/restaurants/api/restaurant/" + createdRestaurant.id);
+		    $('#getResult').load("http://restaurants/api/restaurant/" + createdRestaurant.id);
 		},
 		"json"
 	);

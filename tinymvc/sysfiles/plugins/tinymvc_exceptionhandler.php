@@ -73,12 +73,13 @@ class TinyMVC_ExceptionHandler extends ErrorException {
 			  break;
 	  }
 	  ?>
-    <span style="text-align: left; background-color: #fcc; border: 1px solid #600; color: #600; display: block; margin: 1em 0; padding: .33em 6px">
-      <b>Error:</b> <?=$code_name?><br />
-      <b>Message:</b> <?=$e->getMessage()?><br />
-      <b>File:</b> <?=$e->getFile()?><br />
-      <b>Line:</b> <?=$e->getLine()?>
-    </span>
+    {
+      "error": <?php echo json_encode($code_name); ?>,
+      "message": <?php echo json_encode($e->getMessage()); ?><?php if (isset($_GET['debug'])) { ?>,
+      "file": <?php echo json_encode($e->getFile()); ?>,
+      "line": <?php echo json_encode($e->getLine()); ?>
+      <?php } ?>
+    }
 	  <?php
   }
   
