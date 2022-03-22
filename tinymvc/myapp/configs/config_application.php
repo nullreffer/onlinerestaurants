@@ -1,14 +1,5 @@
 <?php
 
-/**
- * application.php
- *
- * application configuration
- *
- * @package		TinyMVC
- * @author		Monte Ohrt
- */
-
 error_reporting (E_ALL ) ;
 
 /* URL routing, use preg_replace() compatible syntax */
